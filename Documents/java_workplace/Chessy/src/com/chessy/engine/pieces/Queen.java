@@ -12,13 +12,13 @@ import com.chessy.engine.board.Tile;
 import com.chessy.engine.board.Move.AttackMove;
 import com.google.common.collect.ImmutableList;
 
-public class Rook extends Piece{
-	
-	private static final int []LEGAL_MOVES = {-1,-8,1,8};
-	
-	public Rook(Alliance pieceAlliance,int piecePosition){
-		super(piecePosition, pieceAlliance);
+public class Queen extends Piece{
+	private static final int []LEGAL_MOVES = {-9,-8,-7,-1,1,7,8,9};
+
+	public Queen(final Alliance pieceAlliance,final int piecePosition) {
+		super(piecePosition,pieceAlliance);
 	}
+
 	@Override
 	public Collection<Move> calculateLegalMoves(Board board) {
 		int destinationCordinate;
@@ -50,10 +50,10 @@ public class Rook extends Piece{
 		return isFirstColumnExclusion(pos, off)||isEighthColumnExclusion(pos, off);
 	}
 	private static boolean isFirstColumnExclusion(final int pos, final int off) {
-        return BoardUtil.FIRST_COLUMN[pos] && ((off == -1));
+        return BoardUtil.FIRST_COLUMN[pos] && ((off == -9) || (off== 7)|| (off == -1));
     }
     private static boolean isEighthColumnExclusion(final int pos, final int off) {
-        return BoardUtil.EIGHTH_COLUMN[pos] && ((off == 1));
+        return BoardUtil.EIGHTH_COLUMN[pos] && ((off == -7) || (off== 9)|| (off == 1));
     }
-
+	
 }

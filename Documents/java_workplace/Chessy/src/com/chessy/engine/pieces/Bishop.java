@@ -16,7 +16,7 @@ public class Bishop extends Piece {
 	//these are vectored cordinates 
 	private static final int []LEGAL_MOVES = {-9,-7,9,7};
 	
-	Bishop(Alliance pieceAlliance,int piecePosition){
+	public Bishop(Alliance pieceAlliance,int piecePosition){
 		super(piecePosition, pieceAlliance);
 	}
 
