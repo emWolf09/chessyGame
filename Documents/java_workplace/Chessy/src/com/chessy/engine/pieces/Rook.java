@@ -8,20 +8,19 @@ import com.chess.engine.common.Alliance;
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.BoardUtil;
 import com.chessy.engine.board.Move;
-import com.chessy.engine.board.Move.AttackMove;
 import com.chessy.engine.board.Tile;
+import com.chessy.engine.board.Move.AttackMove;
 import com.google.common.collect.ImmutableList;
 
-public class Bishop extends Piece {
-	//these are vectored cordinates 
-	private static final int []LEGAL_MOVES = {-9,-7,9,7};
+public class Rook extends Piece{
 	
-	Bishop(Alliance pieceAlliance,int piecePosition){
+	private static final int []LEGAL_MOVES = {-1,-8,1,8};
+	
+	Rook(Alliance pieceAlliance,int piecePosition){
 		super(piecePosition, pieceAlliance);
 	}
-
 	@Override
-	public Collection<Move> calculateLegalMoves(final Board board) {
+	public Collection<Move> calculateLegalMoves(Board board) {
 		int destinationCordinate;
 		List<Move> legalMovelist = new ArrayList<>();
 		
@@ -51,10 +50,10 @@ public class Bishop extends Piece {
 		return isFirstColumnExclusion(pos, off)||isEighthColumnExclusion(pos, off);
 	}
 	private static boolean isFirstColumnExclusion(final int pos, final int off) {
-        return BoardUtil.FIRST_COLUMN[pos] && ((off == -9) || (off== 7));
+        return BoardUtil.FIRST_COLUMN[pos] && ((off == -1));
     }
     private static boolean isEighthColumnExclusion(final int pos, final int off) {
-        return BoardUtil.EIGHTH_COLUMN[pos] && ((off == -7) || (off== 9));
+        return BoardUtil.EIGHTH_COLUMN[pos] && ((off == 1));
     }
-	
+
 }
