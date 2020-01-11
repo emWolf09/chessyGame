@@ -1,6 +1,7 @@
 package com.chessy.engine.pieces;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -19,7 +20,7 @@ public final class Knight extends Piece{
 		super(piecePosition, pieceAlliance);
 	}
 	@Override
-	public List<Move> calculateLegalMoves(Board board) {
+	public Collection<Move> calculateLegalMoves(Board board) {
 		
 		int destinationCordinate;
 		List<Move> legalMovelist = new ArrayList<>();
@@ -42,12 +43,10 @@ public final class Knight extends Piece{
 					Piece destinationTilePiece = destinationTile.getPiece();
 					Alliance alliance = destinationTilePiece.getPieceAlliance();
 					if(alliance!=this.pieceAlliance) {
-						//TODO here add a move with given parameter
-						legalMovelist.add(new Move()); 
+						legalMovelist.add(new Move.AttackMove(board,this,destinationCordinate,destinationTilePiece)); 
 					}
 				}else {
-					//TODO add here right move
-					legalMovelist.add(new Move());
+					legalMovelist.add(new Move.MajorMove(board, this, destinationCordinate));
 				}
 				
 			}
