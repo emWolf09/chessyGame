@@ -19,6 +19,11 @@ public class Bishop extends Piece {
 	public Bishop(Alliance pieceAlliance,int piecePosition){
 		super(piecePosition, pieceAlliance);
 	}
+	
+	@Override
+	public String toString() {
+		return Piece.PieceType.BISHOP.toString();
+	}
 
 	@Override
 	public Collection<Move> calculateLegalMoves(final Board board) {

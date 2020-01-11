@@ -19,6 +19,12 @@ public class Rook extends Piece{
 	public Rook(Alliance pieceAlliance,int piecePosition){
 		super(piecePosition, pieceAlliance);
 	}
+	
+	@Override
+	public String toString() {
+		return Piece.PieceType.ROOK.toString();
+	}
+	
 	@Override
 	public Collection<Move> calculateLegalMoves(Board board) {
 		int destinationCordinate;

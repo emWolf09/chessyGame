@@ -21,6 +21,11 @@ public class Pawn extends Piece{
 	}
 
 	@Override
+	public String toString() {
+		return Piece.PieceType.PAWN.toString();
+	}
+	
+	@Override
 	public Collection<Move> calculateLegalMoves(final Board board) {
 		int destinationCordinate;
 		List<Move> legalMovelist = new ArrayList<>();
@@ -52,7 +57,7 @@ public class Pawn extends Piece{
 				
 				//check piece on attacking destination
 				Piece destinationPiece = board.getTile(destinationCordinate).getPiece();
-				if(destinationPiece.pieceAlliance!=this.pieceAlliance) {
+				if(destinationPiece!=null && destinationPiece.pieceAlliance!=this.pieceAlliance) {
 					//TODO promotion or non promotion
 					legalMovelist.add(new Move.MajorMove(board,this,destinationCordinate));
 				}
@@ -65,7 +70,7 @@ public class Pawn extends Piece{
 				
 				//check piece on attacking destination
 				Piece destinationPiece = board.getTile(destinationCordinate).getPiece();
-				if(destinationPiece.pieceAlliance!=this.pieceAlliance) {
+				if(destinationPiece!=null &&destinationPiece.pieceAlliance!=this.pieceAlliance) {
 					//TODO promotion or non promotion
 					legalMovelist.add(new Move.MajorMove(board,this,destinationCordinate));
 				}

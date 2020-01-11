@@ -14,8 +14,13 @@ import com.google.common.collect.ImmutableList;
 public class King extends Piece{
 
 	private static final int []LEGAL_MOVES = {-8,-1-9,-7,1,9,8,7};
-	public King(int piecePostion, Alliance pieceAlliance) {
+	public King(Alliance pieceAlliance,int piecePostion) {
 		super(piecePostion, pieceAlliance);
+	}
+	
+	@Override
+	public String toString() {
+		return Piece.PieceType.KING.toString();
 	}
 
 	@Override
