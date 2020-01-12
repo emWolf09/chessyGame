@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.chess.engine.common.Alliance;
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.Move;
 import com.chessy.engine.pieces.King;
@@ -18,7 +19,7 @@ public abstract class Player {
 		this.legalMove = legalMove;
 		this.playerKing = establishKing();
 	}
-	protected King establishKing() {
+	private King establishKing() {
 		List<Piece> pieceList = new ArrayList<Piece>(getActivePieces());
 		for(Piece piece : pieceList) {
 			if(piece.getPieceType().isKing()) {
@@ -28,7 +29,40 @@ public abstract class Player {
 		
 		throw new RuntimeException("Failed to establish king ::A player without no king is invalid");
 	}
-	protected abstract Collection<Piece> getActivePieces();
+	
+	public boolean isMoveLegal(Move move) {
+		return this.legalMove.contains(move);
+	}
+	
+	public MoveTransition makeMove(Move move) {
+		return null;
+	}
+	
+	public boolean isInCheck() {
+		//TODO write logic for checking check condidtion
+		return false;
+	}
+	
+	public boolean isInCheckMate() {
+		//TODO write logic for checking check mate condidtion
+		return false;
+	}
+	
+	public boolean isInStaleMate() {
+		//TODO write logic for checking stale mate condidtion
+		return false;
+	}
+	
+	public boolean isCastled() {
+		//TODO
+		return false;
+	}
+	
+	public abstract Collection<Piece> getActivePieces();
+	public abstract Alliance getAlliance();
+	public abstract Player getOpponent();
+	
+	
 	
 	
 }

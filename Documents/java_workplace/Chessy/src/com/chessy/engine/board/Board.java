@@ -10,6 +10,7 @@ import com.chess.engine.common.Alliance;
 import com.chessy.engine.constants.Constants;
 import com.chessy.engine.pieces.Piece;
 import com.chessy.engine.player.BlackPlayer;
+import com.chessy.engine.player.Player;
 import com.chessy.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 
@@ -119,5 +120,12 @@ public class Board {
 			return new Board(this);
 		}
 	}
+
+	public Player getWhitePlayer() {
+		return this.whitePlayer;
+	}
 	
+	public Player getBlackPlayer() {
+		return this.blackPlayer;
+	}
 }
