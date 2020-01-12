@@ -16,7 +16,7 @@ public class Queen extends Piece{
 	private static final int []LEGAL_MOVES = {-9,-8,-7,-1,1,7,8,9};
 
 	public Queen(final Alliance pieceAlliance,final int piecePosition) {
-		super(piecePosition,pieceAlliance);
+		super(piecePosition,pieceAlliance,PieceType.QUEEN);
 	}
 
 	

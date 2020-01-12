@@ -17,7 +17,7 @@ public class Rook extends Piece{
 	private static final int []LEGAL_MOVES = {-1,-8,1,8};
 	
 	public Rook(Alliance pieceAlliance,int piecePosition){
-		super(piecePosition, pieceAlliance);
+		super(piecePosition, pieceAlliance,PieceType.ROOK);
 	}
 	
 	@Override

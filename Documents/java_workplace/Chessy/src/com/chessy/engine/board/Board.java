@@ -30,7 +30,7 @@ public class Board {
 		final Collection<Move> blackStandardLegalMove = calculateLegalMove(this.blackPieces);
 		
 		this.whitePlayer = new WhitePlayer(this,whiteStandardLegalMove,blackStandardLegalMove);
-		this.blackPlayer = new BlackPlayer(this,whiteStandardLegalMove,blackStandardLegalMove);
+		this.blackPlayer = new BlackPlayer(this,blackStandardLegalMove,whiteStandardLegalMove);
 		
 	}
 	
@@ -48,6 +48,16 @@ public class Board {
 		return boardString.toString();
 	}
 	
+	
+	
+	public Collection<Piece> getWhitePieces() {
+		return this.whitePieces;
+	}
+
+	public Collection<Piece> getBlackPieces() {
+		return this.blackPieces;
+	}
+
 	private Collection<Move> calculateLegalMove(Collection<Piece> activePieces) {
 		final List<Move> legalMoves = new ArrayList<Move>();
 		for(Piece piece : activePieces) {

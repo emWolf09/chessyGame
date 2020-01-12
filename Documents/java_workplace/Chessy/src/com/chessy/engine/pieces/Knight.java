@@ -17,7 +17,7 @@ public final class Knight extends Piece{
 	private static final int []LEGAL_MOVES = {-17, -15, -10, -6, 6, 10, 15, 17};
 	
 	public Knight(final Alliance pieceAlliance,final int piecePosition){
-		super(piecePosition, pieceAlliance);
+		super(piecePosition, pieceAlliance,PieceType.KNIGHT);
 	}
 	
 	@Override
