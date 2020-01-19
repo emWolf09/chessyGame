@@ -1,5 +1,9 @@
 package com.chess.engine.common;
 
+import com.chessy.engine.player.BlackPlayer;
+import com.chessy.engine.player.Player;
+import com.chessy.engine.player.WhitePlayer;
+
 public enum Alliance {
 	WHITE{
 		@Override
@@ -16,6 +20,11 @@ public enum Alliance {
 		public boolean isWhite() {
 			return true;
 		}
+
+		@Override
+		public Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer) {
+			return whitePlayer;
+		}
 	},BLACK{
 		@Override
 		public int getDirection() {
@@ -31,8 +40,14 @@ public enum Alliance {
 		public boolean isWhite() {
 			return false;
 		}
+
+		@Override
+		public Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer) {
+			return blackPlayer;
+		}
 	};	
 	public abstract int getDirection();
 	public abstract boolean isBlack();
 	public abstract boolean isWhite();
+	public abstract Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer);
 }

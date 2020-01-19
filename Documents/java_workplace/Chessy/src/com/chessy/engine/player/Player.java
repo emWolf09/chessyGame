@@ -9,16 +9,38 @@ import com.chessy.engine.board.Board;
 import com.chessy.engine.board.Move;
 import com.chessy.engine.pieces.King;
 import com.chessy.engine.pieces.Piece;
+import com.google.common.collect.ImmutableList;
 
 public abstract class Player {
 	protected final Board board;
 	protected final King playerKing;
 	protected final Collection<Move> legalMove;
+	private final boolean isInCheck;
+	
 	public Player(final Board board,final Collection<Move> legalMove,final Collection<Move> opponentMove) {
 		this.board = board;
 		this.legalMove = legalMove;
 		this.playerKing = establishKing();
+		this.isInCheck = !Player.calculateAttackOnTile(this.playerKing.getPiecePostion(),opponentMove).isEmpty();
 	}
+	
+	private static Collection<Move> calculateAttackOnTile(int piecePosition,Collection<Move> moves){
+		List<Move> attackMove = new ArrayList<>();
+		for(Move currentMove:moves) {
+			if(currentMove.getDestinationCordinate()==piecePosition)attackMove.add(currentMove);
+		}
+		
+		return ImmutableList.copyOf(attackMove);
+	}
+	
+	public Collection<Move> getLegalMoves(){
+		return this.legalMove;
+	}
+	
+	public King getPlayerKing() {
+		return this.playerKing;
+	}
+	
 	private King establishKing() {
 		List<Piece> pieceList = new ArrayList<Piece>(getActivePieces());
 		for(Piece piece : pieceList) {
@@ -35,22 +57,37 @@ public abstract class Player {
 	}
 	
 	public MoveTransition makeMove(Move move) {
-		return null;
+		if(!isMoveLegal(move)) {
+			return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
+		}
+		
+		final Board transitionBoard = move.execute();
+		final Collection<Move> kingAttacks = Player.calculateAttackOnTile(transitionBoard.getCurrentPlayer().getOpponent().getPlayerKing().getPiecePostion()
+				, transitionBoard.getCurrentPlayer().getLegalMoves());
+		if(!kingAttacks.isEmpty()) {
+			return new MoveTransition(this.board, move, MoveStatus.LEAVES_PLAYER_IN_CHECK);
+		}
+		return new MoveTransition(transitionBoard, move, MoveStatus.DONE);
 	}
 	
 	public boolean isInCheck() {
-		//TODO write logic for checking check condidtion
-		return false;
+		return this.isInCheck;
 	}
 	
 	public boolean isInCheckMate() {
-		//TODO write logic for checking check mate condidtion
-		return false;
+		return this.isInCheck && !hasEscapeMove();
 	}
 	
-	public boolean isInStaleMate() {
-		//TODO write logic for checking stale mate condidtion
+	protected  boolean hasEscapeMove() {
+		for(Move move:legalMove) {
+			MoveTransition transition = makeMove(move);
+			if(transition.getMoveStatus().isDone())return true;
+		}
 		return false;
+	}
+
+	public boolean isInStaleMate() {
+		return !isInCheck && !hasEscapeMove();
 	}
 	
 	public boolean isCastled() {

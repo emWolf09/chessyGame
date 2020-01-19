@@ -59,4 +59,5 @@ public class King extends Piece{
     private static boolean isEighthColumnExclusion(final int pos, final int off) {
         return BoardUtil.EIGHTH_COLUMN[pos] && ((off == -7) || (off == 1)|| (off == 9));
     }
+
 }
