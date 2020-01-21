@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.chess.engine.common.Alliance;
+import com.chessy.engine.common.Alliance;
 import com.chessy.engine.constants.Constants;
 import com.chessy.engine.pieces.Piece;
 import com.chessy.engine.player.BlackPlayer;

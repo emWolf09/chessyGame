@@ -2,22 +2,52 @@ package com.chessy.engine.pieces;
 
 import java.util.Collection;
 
-import com.chess.engine.common.Alliance;
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.Move;
+import com.chessy.engine.common.Alliance;
 
 public abstract class Piece {
 	protected final int piecePostion;
 	protected final Alliance pieceAlliance;
 	protected final boolean isFirstMove;
 	protected final PieceType pieceType;
+	private final int hashCode;
 	Piece(final int piecePostion,final Alliance pieceAlliance,final PieceType pieceType){
 		this.piecePostion = piecePostion;
 		this.pieceAlliance = pieceAlliance;
 		//TODO 
 		this.isFirstMove = false;
 		this.pieceType = pieceType;
+		this.hashCode = computeHashCode();
 	}
+	
+	private int computeHashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (isFirstMove ? 1 : 0);
+		result = prime * result + pieceAlliance.hashCode();
+		result = prime * result + piecePostion;
+		result = prime * result + pieceType.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(this==obj)return true;
+		
+		if(!(obj instanceof Piece))return false;
+		
+		final Piece otherPiece = (Piece)obj;
+		return this.pieceAlliance==otherPiece.pieceAlliance&&piecePostion==otherPiece.piecePostion&&
+				pieceType==otherPiece.pieceType&&isFirstMove==otherPiece.isFirstMove;
+	} 
+	
+	@Override
+	public int hashCode() {
+		return this.hashCode;
+	}
+
+	public abstract Piece movePiece(final Move move);
 	
 	public int getPiecePostion() {
 		return this.piecePostion;

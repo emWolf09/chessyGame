@@ -1,7 +1,7 @@
 package com.chessy.engine.board;
 
-import com.chess.engine.common.Alliance;
 import com.chessy.engine.board.Board.Builder;
+import com.chessy.engine.common.Alliance;
 import com.chessy.engine.pieces.*;
 public class StandardBoard{
 	private StandardBoard() {

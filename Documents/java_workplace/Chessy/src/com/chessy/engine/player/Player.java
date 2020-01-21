@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.chess.engine.common.Alliance;
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.Move;
+import com.chessy.engine.common.Alliance;
 import com.chessy.engine.pieces.King;
 import com.chessy.engine.pieces.Piece;
 import com.google.common.collect.ImmutableList;

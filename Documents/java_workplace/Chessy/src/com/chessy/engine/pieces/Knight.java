@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
-import com.chess.engine.common.Alliance;
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.BoardUtil;
 import com.chessy.engine.board.Move;
 import com.chessy.engine.board.Tile;
+import com.chessy.engine.common.Alliance;
 import com.google.common.collect.ImmutableList;
 
 public final class Knight extends Piece{
@@ -79,5 +78,9 @@ public final class Knight extends Piece{
                 (off == 10) || (off == 17));
 
     }
+    @Override
+	public Knight movePiece(Move move) {
+		return new Knight(move.getMovedPiece().getPieceAlliance(), move.getDestinationCordinate());
+	}
 
 }

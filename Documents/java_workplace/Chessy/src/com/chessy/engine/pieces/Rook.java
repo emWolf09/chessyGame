@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.chess.engine.common.Alliance;
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.BoardUtil;
 import com.chessy.engine.board.Move;
 import com.chessy.engine.board.Tile;
 import com.chessy.engine.board.Move.AttackMove;
+import com.chessy.engine.common.Alliance;
 import com.google.common.collect.ImmutableList;
 
 public class Rook extends Piece{
@@ -61,5 +61,10 @@ public class Rook extends Piece{
     private static boolean isEighthColumnExclusion(final int pos, final int off) {
         return BoardUtil.EIGHTH_COLUMN[pos] && ((off == 1));
     }
+    
+    @Override
+	public Rook movePiece(Move move) {
+		return new Rook(move.getMovedPiece().getPieceAlliance(), move.getDestinationCordinate());
+	}
 
 }

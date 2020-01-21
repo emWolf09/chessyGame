@@ -1,4 +1,4 @@
-package com.chess.engine.common;
+package com.chessy.engine.common;
 
 import com.chessy.engine.player.BlackPlayer;
 import com.chessy.engine.player.Player;

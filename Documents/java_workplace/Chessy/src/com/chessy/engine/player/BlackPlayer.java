@@ -2,9 +2,9 @@ package com.chessy.engine.player;
 
 import java.util.Collection;
 
-import com.chess.engine.common.Alliance;
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.Move;
+import com.chessy.engine.common.Alliance;
 import com.chessy.engine.pieces.Piece;
 
 public class BlackPlayer extends Player{
