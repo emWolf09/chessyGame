@@ -10,6 +10,7 @@ import com.chessy.engine.common.Alliance;
 import com.chessy.engine.pieces.King;
 import com.chessy.engine.pieces.Piece;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 public abstract class Player {
 	protected final Board board;
@@ -19,7 +20,7 @@ public abstract class Player {
 	
 	public Player(final Board board,final Collection<Move> legalMove,final Collection<Move> opponentMove) {
 		this.board = board;
-		this.legalMove = legalMove;
+		this.legalMove = ImmutableList.copyOf(Iterables.concat(legalMove,calculateKingCastles(legalMove, opponentMove)));
 		this.playerKing = establishKing();
 		this.isInCheck = !Player.calculateAttackOnTile(this.playerKing.getPiecePostion(),opponentMove).isEmpty();
 	}

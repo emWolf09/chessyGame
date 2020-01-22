@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.chessy.engine.board.Board;
+import static com.chessy.engine.board.CastleMove.*;
 import com.chessy.engine.board.Move;
 import com.chessy.engine.board.Tile;
 import com.chessy.engine.common.Alliance;
 import com.chessy.engine.pieces.Piece;
+import com.chessy.engine.pieces.Rook;
 import com.google.common.collect.ImmutableList;
 
 public class WhitePlayer extends Player{
 
-	public WhitePlayer(Board board, Collection<Move> whiteStandardLegalMove, Collection<Move> blackStandardLegalMove) {
+	public WhitePlayer(final Board board,final Collection<Move> whiteStandardLegalMove,final Collection<Move> blackStandardLegalMove) {
 		super(board, whiteStandardLegalMove, blackStandardLegalMove);
 	}
 
@@ -32,7 +34,7 @@ public class WhitePlayer extends Player{
 	}
 
 	@Override
-	protected Collection<Move> calculateKingCastles(Collection<Move> playerLegals, Collection<Move> opponentLegals) {
+	protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals, final Collection<Move> opponentLegals) {
 		Collection<Move> kingCastles = new ArrayList<Move>();
 		
 		if(this.playerKing.isFirstMove() && !isInCheck()) {
@@ -44,8 +46,10 @@ public class WhitePlayer extends Player{
 					Piece piece = rookPositionTile.getPiece();
 					if(piece.getPieceAlliance()==this.getAlliance() && piece.getPieceType().isRook() && piece.isFirstMove()) {
 						if(Player.calculateAttackOnTile(62, opponentLegals).isEmpty()) {
-							//TODO create a castle move and add it
-							kingCastles.add(null);
+							kingCastles.add(new KingSideCastleMove(board,
+														this.playerKing, 62, (Rook)piece, 
+														61,//destination
+														63));//start
 						}
 					}
 				}
@@ -60,7 +64,12 @@ public class WhitePlayer extends Player{
 					Piece piece = rookPositionTile.getPiece();
 					if(piece.getPieceAlliance()==this.getAlliance() && piece.getPieceType().isRook() && piece.isFirstMove()) {
 						//TODO create a castle move and add it
-						kingCastles.add(null);
+						kingCastles.add(new QueenSideCastleMove(board,
+										this.playerKing, 58, 
+										(Rook)piece,
+										59, //destination
+										56)//start
+										);
 					}
 				}
 			}

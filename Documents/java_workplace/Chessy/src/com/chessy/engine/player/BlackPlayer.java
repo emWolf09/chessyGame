@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.chessy.engine.board.Board;
+import static com.chessy.engine.board.CastleMove.*;
 import com.chessy.engine.board.Move;
 import com.chessy.engine.board.Tile;
 import com.chessy.engine.common.Alliance;
 import com.chessy.engine.pieces.Piece;
+import com.chessy.engine.pieces.Rook;
 import com.google.common.collect.ImmutableList;
 
 public class BlackPlayer extends Player{
 
-	public BlackPlayer(Board board, Collection<Move> blackStandardLegalMove, Collection<Move> opponentMove) {
+	public BlackPlayer(final Board board,final Collection<Move> blackStandardLegalMove,final Collection<Move> opponentMove) {
 		super(board, blackStandardLegalMove, opponentMove);
 	}
 
@@ -32,7 +34,7 @@ public class BlackPlayer extends Player{
 	}
 	
 	@Override
-	protected Collection<Move> calculateKingCastles(Collection<Move> playerLegals, Collection<Move> opponentLegals) {
+	protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals,final Collection<Move> opponentLegals) {
 		Collection<Move> kingCastles = new ArrayList<Move>();
 		
 		if(this.playerKing.isFirstMove() && !isInCheck()) {
@@ -45,7 +47,11 @@ public class BlackPlayer extends Player{
 					if(piece.getPieceAlliance()==this.getAlliance() && piece.getPieceType().isRook() && piece.isFirstMove()) {
 						if(Player.calculateAttackOnTile(6, opponentLegals).isEmpty()) {
 							//TODO create a castle move and add it
-							kingCastles.add(null);
+							kingCastles.add(new KingSideCastleMove(board, 
+											this.playerKing, 6, 
+											(Rook)piece, 
+											5, //dest
+											7)); //start
 						}
 					}
 				}
@@ -61,7 +67,11 @@ public class BlackPlayer extends Player{
 					Piece piece = rookPositionTile.getPiece();
 					if(piece.getPieceAlliance()==this.getAlliance() && piece.getPieceType().isRook() && piece.isFirstMove()) {
 						//TODO create a castle move and add it
-						kingCastles.add(null);
+						kingCastles.add(new QueenSideCastleMove(board, 
+										this.playerKing, 2, 
+										(Rook)piece, 
+										3, //dest
+										0));//start
 					}
 				}
 			}

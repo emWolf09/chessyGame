@@ -72,7 +72,6 @@ public abstract class Move {
 		 **/
 		final Builder builder = new Builder();
 		for(final Piece piece:this.board.getCurrentPlayer().getActivePieces()) {
-			//TODO hashcode and equals for pieces
 			if(!piece.equals(this.movedPiece)) {
 				builder.setPiece(piece);
 			}
