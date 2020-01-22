@@ -13,4 +13,6 @@ public class Constants {
 	public static final int BOARD_PANEL_WIDTH = 400;
 	public static final int BOARD_PANEL_HEIGHT = 350;
 	public static final int TILE_PANEL_WIDTH = 10;
+	
+	public static final String SPRITES_PATH = "sprites/";
 }
