@@ -39,8 +39,8 @@ public class Pawn extends Piece{
 				//TODO two case here 1. Non promotion move or promotion move
 				legalMovelist.add(new Move.MajorMove(board,this,destinationCordinate));
 			}else if(offset==16 && this.isFirstMove() && (
-					(this.pieceAlliance.isBlack() && BoardUtil.SECOND_ROW[this.piecePostion])||
-					(this.pieceAlliance.isWhite() && BoardUtil.SEVENTH_ROW[this.piecePostion]))) 
+					(this.pieceAlliance.isBlack() && BoardUtil.SEVENTH_RANK[this.piecePostion])||
+					(this.pieceAlliance.isWhite() && BoardUtil.SECOND_RANK[this.piecePostion]))) 
 			{
 				boolean canJump = false;
 				Tile tileBehindDesination = board.getTile(this.piecePostion+this.pieceAlliance.getDirection()*8);

@@ -65,7 +65,7 @@ public class BoardUtil {
             true,false,false,false,false,false,false,false,
             true,false,false,false,false,false,false,false
     };
-    public static final boolean[] SECOND_ROW = {
+    public static final boolean[] SEVENTH_RANK = {
             false,false,false,false,false,false,false,false,
             true,true,true,true,true,true,true,true,
             false,false,false,false,false,false,false,false,
@@ -75,7 +75,7 @@ public class BoardUtil {
             false,false,false,false,false,false,false,false,
             false,false,false,false,false,false,false,false
     };
-    public static final boolean[] SEVENTH_ROW = {
+    public static final boolean[] SECOND_RANK = {
             false,false,false,false,false,false,false,false,
             false,false,false,false,false,false,false,false,
             false,false,false,false,false,false,false,false,
@@ -89,12 +89,12 @@ public class BoardUtil {
     //remaining colomn and rows
     public static final boolean[] FOURTH_COLUMN = initColumn(3);
     public static final boolean[] THIRD_COLUMN = initColumn(2);
-    public static final boolean[] FIRST_ROW = initRow(0);
-    public static final boolean[] THIRD_ROW = initRow(16);
-    public static final boolean[] FOURTH_ROW = initRow(24);
-    public static final boolean[] FIFTH_ROW = initRow(32);
-    public static final boolean[] SIXTH_ROW = initRow(40);
-    public static final boolean[] EIGHTH_ROW = initRow(56);
+    public static final boolean[] EIGTH_RANK = initRow(0);
+    public static final boolean[] SIXTH_RANK = initRow(16);
+    public static final boolean[] FIFTH_RANK = initRow(24);
+    public static final boolean[] FOURTH_RANK = initRow(32);
+    public static final boolean[] THIRD_RANK = initRow(40);
+    public static final boolean[] FIRST_RANK = initRow(56);
 
 	private BoardUtil() {
 		throw new RuntimeException("BoardUtil class can not be instanciated");
