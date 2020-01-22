@@ -65,6 +65,14 @@ public class BoardUtil {
             true,false,false,false,false,false,false,false,
             true,false,false,false,false,false,false,false
     };
+    
+    
+  //remaining colomn and rows
+    public static final boolean[] FOURTH_COLUMN = initColumn(3);
+    public static final boolean[] THIRD_COLUMN = initColumn(2);
+    
+    
+    
     public static final boolean[] SEVENTH_RANK = {
             false,false,false,false,false,false,false,false,
             true,true,true,true,true,true,true,true,
@@ -86,9 +94,10 @@ public class BoardUtil {
             false,false,false,false,false,false,false,false
     };
 	
-    //remaining colomn and rows
-    public static final boolean[] FOURTH_COLUMN = initColumn(3);
-    public static final boolean[] THIRD_COLUMN = initColumn(2);
+    /*
+     * bottom rank is First Rank and keep go on upside
+     */
+    
     public static final boolean[] EIGTH_RANK = initRow(0);
     public static final boolean[] SIXTH_RANK = initRow(16);
     public static final boolean[] FIFTH_RANK = initRow(24);
