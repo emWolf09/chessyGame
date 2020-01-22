@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.chessy.engine.board.AttackMove;
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.BoardUtil;
 import com.chessy.engine.board.Move;
@@ -48,7 +49,7 @@ public final class Knight extends Piece{
 					Piece destinationTilePiece = destinationTile.getPiece();
 					Alliance alliance = destinationTilePiece.getPieceAlliance();
 					if(alliance!=this.pieceAlliance) {
-						legalMovelist.add(new Move.AttackMove(board,this,destinationCordinate,destinationTilePiece)); 
+						legalMovelist.add(new AttackMove(board,this,destinationCordinate,destinationTilePiece)); 
 					}
 				}else {
 					legalMovelist.add(new Move.MajorMove(board, this, destinationCordinate));

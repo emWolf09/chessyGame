@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.chessy.engine.common.Alliance;
 import com.chessy.engine.constants.Constants;
+import com.chessy.engine.pieces.Pawn;
 import com.chessy.engine.pieces.Piece;
 import com.chessy.engine.player.BlackPlayer;
 import com.chessy.engine.player.Player;
@@ -23,6 +24,7 @@ public class Board {
 	private final WhitePlayer whitePlayer;
 	private final BlackPlayer blackPlayer;
 	private final Player currentPlayer;
+	private final Pawn enPassantPawn;
 	private Board(Builder builder) {
 		
 		this.gameBoard = createGameBoard(builder);
@@ -36,6 +38,7 @@ public class Board {
 		this.blackPlayer = new BlackPlayer(this,blackStandardLegalMove,whiteStandardLegalMove);
 		
 		this.currentPlayer = builder.nextMoveMakerAlliance.choosePlayer(this.whitePlayer,this.blackPlayer);
+		this.enPassantPawn = builder.enPassantPawn;
 	}
 	
 	@Override
@@ -65,7 +68,14 @@ public class Board {
 		return this.blackPieces;
 	}
 	
+	public Pawn getEnPassantPawn() {
+		return this.enPassantPawn;
+	}
+	
 	public Iterable<Move> getAllLegalMoves(){
+		/*
+		 * copied code here merge both moves
+		 */
 		return Iterables.unmodifiableIterable(
 					Iterables.concat(this.whitePlayer.getLegalMoves(),this.blackPlayer.getLegalMoves())
 				);
@@ -113,7 +123,7 @@ public class Board {
 		
 		Map<Integer,Piece> boardConfig;
 		Alliance nextMoveMakerAlliance;
-		
+		private Pawn enPassantPawn;
 		public Builder() {
 			this.boardConfig = new HashMap<Integer, Piece>();
 		}
@@ -130,6 +140,11 @@ public class Board {
 		
 		public Board build() {
 			return new Board(this);
+		}
+
+		public void setEnpassantPawn(Pawn movedPawn) {
+			this.enPassantPawn = movedPawn;
+			
 		}
 	}
 

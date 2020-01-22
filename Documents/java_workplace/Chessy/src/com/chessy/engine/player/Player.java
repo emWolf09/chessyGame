@@ -24,7 +24,8 @@ public abstract class Player {
 		this.isInCheck = !Player.calculateAttackOnTile(this.playerKing.getPiecePostion(),opponentMove).isEmpty();
 	}
 	
-	private static Collection<Move> calculateAttackOnTile(int piecePosition,Collection<Move> moves){
+	//calculate all those attacks on a given destination tile
+	public static Collection<Move> calculateAttackOnTile(int piecePosition,Collection<Move> moves){
 		List<Move> attackMove = new ArrayList<>();
 		for(Move currentMove:moves) {
 			if(currentMove.getDestinationCordinate()==piecePosition)attackMove.add(currentMove);
@@ -98,7 +99,7 @@ public abstract class Player {
 	public abstract Collection<Piece> getActivePieces();
 	public abstract Alliance getAlliance();
 	public abstract Player getOpponent();
-	
+	protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegals,Collection<Move> opponentLegals);
 	
 	
 	
