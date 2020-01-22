@@ -37,16 +37,14 @@ public class TilePanel extends JPanel{
 
 	private void assignTileColor() {
 		int i = this.tileId;
-        if(BoardUtil.EIGTH_RANK[i] || BoardUtil.SIXTH_RANK[i] || BoardUtil.FOURTH_RANK[i] ||BoardUtil.SECOND_RANK[i])
-           {
-                setBackground(this.tileId%2==0?lightTileColor:darkTileColor);
-            }
-        else if(BoardUtil.SEVENTH_RANK[i]|| BoardUtil.FIFTH_RANK[i] || BoardUtil.THIRD_RANK[i] || BoardUtil.FIRST_RANK[i] )
-          {
-               setBackground(this.tileId%2!=0?lightTileColor:darkTileColor);
-            }
-
-    }
+        
+		if(BoardUtil.EIGTH_RANK[i] || BoardUtil.SIXTH_RANK[i] || BoardUtil.FOURTH_RANK[i] ||BoardUtil.SECOND_RANK[i]){
+            setBackground(this.tileId%2==0?lightTileColor:darkTileColor);
+        }else if(BoardUtil.SEVENTH_RANK[i]|| BoardUtil.FIFTH_RANK[i] || BoardUtil.THIRD_RANK[i] || BoardUtil.FIRST_RANK[i] ){
+            setBackground(this.tileId%2!=0?lightTileColor:darkTileColor);
+        }
+    
+	}
 	
 	
 	private void assignPieceIconOnTile(final Board board){
