@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="Documents/java_workplace/Chessy/src"/>
-	<classpathentry kind="lib" path="/Users/mahesh.nagarwal/Downloads/google-collect-1.0/google-collect-1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/MAHESH NAGARWAL/git/AIChess/lib/google-collections-1.0.jar/google-collections-1.0.jar"/>
 	<classpathentry kind="output" path="Documents/java_workplace/Chessy/bin"/>
 </classpath>

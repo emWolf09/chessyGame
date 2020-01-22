@@ -13,6 +13,7 @@ import com.chessy.engine.player.BlackPlayer;
 import com.chessy.engine.player.Player;
 import com.chessy.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 public class Board {
 	
@@ -63,7 +64,13 @@ public class Board {
 	public Collection<Piece> getBlackPieces() {
 		return this.blackPieces;
 	}
-
+	
+	public Iterable<Move> getAllLegalMoves(){
+		return Iterables.unmodifiableIterable(
+					Iterables.concat(this.whitePlayer.getLegalMoves(),this.blackPlayer.getLegalMoves())
+				);
+	}
+	
 	private Collection<Move> calculateLegalMove(Collection<Piece> activePieces) {
 		final List<Move> legalMoves = new ArrayList<Move>();
 		for(Piece piece : activePieces) {
