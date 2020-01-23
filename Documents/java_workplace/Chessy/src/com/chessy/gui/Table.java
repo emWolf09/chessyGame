@@ -8,19 +8,26 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -31,6 +38,7 @@ import com.chessy.engine.board.Tile;
 import com.chessy.engine.board.Move.MoveFactory;
 import com.chessy.engine.pieces.Piece;
 import com.chessy.engine.player.MoveTransition;
+
 
 
 public class Table {
@@ -44,32 +52,67 @@ public class Table {
     private Tile destinationTile;
     private Piece humanMovedPiece;
     
+    private BoardDirection boardDirection;
+    private boolean highlightMoveFlag;
 	
 	//TODO later make it singeltion
 	public Table(){
 		
 		this.gameFrame = new JFrame("Lets Chessy");
 		this.gameFrame.setLayout(new BorderLayout());
-		final JMenuBar tableMenuBar = MenuBar.createTableMenuBar();
+		this.boardDirection = BoardDirection.NORMAL;
+		MenuBar menuBar = new MenuBar();
+		final JMenuBar tableMenuBar = menuBar.createTableMenuBar();
 		gameFrame.setJMenuBar(tableMenuBar);
 		this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
 		chessBoard = Board.createStandardBoard();
 		this.boardPanel = new BoardPanel();
 		this.gameFrame.add(this.boardPanel,BorderLayout.CENTER);
-		
-		
-		
-		
 		this.gameFrame.setVisible(true);
 	}
 
+	
+	
+	public enum BoardDirection{
+		
+		NORMAL {
+			@Override
+			List<TilePanel> traverse(List<TilePanel> boardTiles) {
+				return boardTiles;
+			}
+
+			@Override
+			BoardDirection opposite() {
+				return FLIPPED;
+			}
+		}
+		,FLIPPED {
+			@Override
+			List<TilePanel> traverse(List<TilePanel> boardTiles) {
+				List<TilePanel> newList = new ArrayList<>(boardTiles);
+				Collections.reverse(newList);
+				return newList;
+			}
+
+			@Override
+			BoardDirection opposite() {
+				return NORMAL;
+			}
+		};
+		
+		
+		abstract List<TilePanel> traverse(final List<TilePanel> boardTiles);
+		abstract BoardDirection opposite();
+		
+		
+	}
 	
 	
 	
 	@SuppressWarnings("serial")
 	public class BoardPanel extends JPanel{
 		
-		final List<TilePanel> boardTiles;
+		List<TilePanel> boardTiles;
 		private final Dimension BOARD_PANEL_DIMENSION = new Dimension(Constants.BOARD_PANEL_WIDTH, Constants.BOARD_PANEL_HEIGHT);
 		
 		public BoardPanel(){
@@ -88,7 +131,7 @@ public class Table {
 
 		public void drawBoard(Board chessBoard) {
 			removeAll();
-			for(final TilePanel tilePanel : boardTiles){
+			for(final TilePanel tilePanel : boardDirection.traverse(boardTiles)){
 				tilePanel.drawTile(chessBoard);
 				add(tilePanel);
 			}
@@ -192,6 +235,7 @@ public class Table {
 		public void drawTile(Board chessBoard) {
 			assignTileColor();
 			assignPieceIconOnTile(chessBoard);
+			highlightLegals(chessBoard);
 			validate();
 			repaint();
 		}
@@ -224,10 +268,108 @@ public class Table {
 	            }
 	        }
 		}
+		
+		private void highlightLegals(final Board board){
+            if(highlightMoveFlag){
+                for(Move move : peiceLegalMoves(board)) {
+                    if(move.getDestinationCordinate()==this.tileId){
+                        try {
+                            add(new JLabel(new ImageIcon(ImageIO.read(new File("sprites/green_dot.png")))));
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+		}
+		
+		private Collection<Move> peiceLegalMoves(final  Board board){
+            if(humanMovedPiece !=null && humanMovedPiece.getPieceAlliance()==board.getCurrentPlayer().getAlliance()){
+                return humanMovedPiece.calculateLegalMoves(chessBoard);
+            }
+            return Collections.emptyList();
+        }
+
 	}
 	
 	
 	
+	
+	
+	
+	public class MenuBar {
+		public  JMenuBar createTableMenuBar() {
+			JMenuBar tableMenuBar = new JMenuBar(); 
+			
+			tableMenuBar.add(createFileMenu());
+			tableMenuBar.add(createExitMenu());
+			tableMenuBar.add(createPreferenceMenu());
+			return tableMenuBar;
+			
+		}
+
+		private  JMenu createPreferenceMenu() {
+			final JMenu preferencesMenu = new JMenu("Preferences");
+			final JMenuItem flipBoard = new JMenuItem("Flip Board");
+			flipBoard.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					boardDirection = boardDirection.opposite();
+					boardPanel.drawBoard(chessBoard);
+				}
+			});
+			preferencesMenu.add(flipBoard);
+			preferencesMenu.addSeparator();
+			final JCheckBoxMenuItem highlightMove = new JCheckBoxMenuItem("Highlight Legal Move");
+			highlightMove.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					highlightMoveFlag = highlightMove.isSelected();
+				}
+			});
+			preferencesMenu.add(highlightMove);
+			return preferencesMenu;
+		}
+
+		//EXIT Menu
+		private  JMenu createExitMenu() {
+			final JMenu exitMenu = new JMenu("Exit");
+			final JMenuItem exit = new JMenuItem("click here! Bye");
+			exit.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("Game Closed by user");
+					System.exit(0);
+				}
+			});
+			
+			exitMenu.add(exit);
+			
+			return exitMenu;
+		}
+
+		//FILE Menu
+		private  JMenu createFileMenu() {
+			final JMenu fileMenu = new JMenu("File");
+			
+			//load saved game option
+			final JMenuItem openPGN = new JMenuItem("Load saved games");
+			openPGN.addActionListener(
+					new ActionListener() {	
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							System.out.println("Tried To open saved game :: XXXXX");
+							System.out.println("x::x::x::option to load saved game Coming Soonx::x::x::");
+						}
+					}
+			);
+			fileMenu.add(openPGN);
+			
+			return fileMenu; 
+		}
+	}
 	
 	
 }

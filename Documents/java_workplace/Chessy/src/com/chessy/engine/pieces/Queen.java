@@ -43,11 +43,11 @@ public class Queen extends Piece{
 						//tile has a piece
 						Piece destinationPiece = destinationTile.getPiece();
 						if(destinationPiece.getPieceAlliance()!=this.getPieceAlliance()) {
-							legalMovelist.add(new AttackMove(board,this,this.getPiecePostion(),destinationPiece));
+							legalMovelist.add(new AttackMove(board,this,destinationCordinate,destinationPiece));
 						}
 						break;//since can not jump a piece in a move
 					}else {
-						legalMovelist.add(new Move.MajorMove(board,this,this.getPiecePostion()));
+						legalMovelist.add(new Move.MajorMove(board,this,destinationCordinate));
 					}
 				}
 			}
