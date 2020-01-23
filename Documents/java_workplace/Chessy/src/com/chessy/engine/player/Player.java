@@ -20,9 +20,9 @@ public abstract class Player {
 	
 	public Player(final Board board,final Collection<Move> legalMove,final Collection<Move> opponentMove) {
 		this.board = board;
-		this.legalMove = ImmutableList.copyOf(Iterables.concat(legalMove,calculateKingCastles(legalMove, opponentMove)));
 		this.playerKing = establishKing();
 		this.isInCheck = !Player.calculateAttackOnTile(this.playerKing.getPiecePostion(),opponentMove).isEmpty();
+		this.legalMove = ImmutableList.copyOf(Iterables.concat(legalMove,calculateKingCastles(legalMove, opponentMove)));
 	}
 	
 	//calculate all those attacks on a given destination tile

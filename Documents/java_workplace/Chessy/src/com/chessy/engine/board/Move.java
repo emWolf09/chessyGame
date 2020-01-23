@@ -300,7 +300,7 @@ public abstract class Move {
 			System.err.println("Can not instantiate Move Factory class");
 		}
 		
-		public Move createMove(final Board board,final int currentCordinate,final int destinationCordinate) {
+		public static Move createMove(final Board board,final int currentCordinate,final int destinationCordinate) {
 			/*
 			 * Alternate solution would be to iterate through whitePlayer all legal move followed by blackPLayer and check then return move
 			 * Two loops

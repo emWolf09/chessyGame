@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.text.AbstractDocument.LeafElement;
+
 import com.chessy.engine.common.Alliance;
 import com.chessy.engine.constants.Constants;
 import com.chessy.engine.pieces.Pawn;
@@ -15,6 +17,8 @@ import com.chessy.engine.player.Player;
 import com.chessy.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+
+import sun.security.util.LegacyAlgorithmConstraints;
 
 public class Board {
 	
@@ -30,10 +34,8 @@ public class Board {
 		this.gameBoard = createGameBoard(builder);
 		this.whitePieces = calculateActivePiece(this.gameBoard,Alliance.WHITE);
 		this.blackPieces = calculateActivePiece(this.gameBoard,Alliance.BLACK);
-		
 		final Collection<Move> whiteStandardLegalMove = calculateLegalMove(this.whitePieces);
 		final Collection<Move> blackStandardLegalMove = calculateLegalMove(this.blackPieces);
-		
 		this.whitePlayer = new WhitePlayer(this,whiteStandardLegalMove,blackStandardLegalMove);
 		this.blackPlayer = new BlackPlayer(this,blackStandardLegalMove,whiteStandardLegalMove);
 		
