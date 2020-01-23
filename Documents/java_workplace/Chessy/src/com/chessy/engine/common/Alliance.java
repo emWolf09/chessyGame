@@ -25,6 +25,11 @@ public enum Alliance {
 		public Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer) {
 			return whitePlayer;
 		}
+		
+		@Override
+		public String toString() {
+			return "white";
+		}
 	},BLACK{
 		@Override
 		public int getDirection() {
@@ -45,9 +50,16 @@ public enum Alliance {
 		public Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer) {
 			return blackPlayer;
 		}
+
+		@Override
+		public String toString() {
+			return "black";
+		}
 	};	
 	public abstract int getDirection();
 	public abstract boolean isBlack();
 	public abstract boolean isWhite();
 	public abstract Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer);
+	@Override
+	public abstract String toString();
 }

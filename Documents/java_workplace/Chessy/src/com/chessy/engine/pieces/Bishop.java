@@ -31,22 +31,23 @@ public class Bishop extends Piece {
 		List<Move> legalMovelist = new ArrayList<>();
 		
 		for(int offset : LEGAL_MOVES) {
-			destinationCordinate = this.piecePostion+offset;
-			if(checkExclusion(this.piecePostion,offset))continue;
+			destinationCordinate = this.piecePostion;
 			while(BoardUtil.isValidTileCordinate(destinationCordinate)) {
 				if(checkExclusion(destinationCordinate,offset))break;
-				Tile destinationTile = board.getTile(destinationCordinate);
-				if(destinationTile.isTileOccupied()) {
-					//tile has a piece
-					Piece destinationPiece = destinationTile.getPiece();
-					if(destinationPiece.getPieceAlliance()!=this.getPieceAlliance()) {
-						legalMovelist.add(new AttackMove(board,this,this.getPiecePostion(),destinationPiece));
-					}
-					break;//since can not jump a piece in a move
-				}else {
-					legalMovelist.add(new Move.MajorMove(board,this,this.getPiecePostion()));
-				}
 				destinationCordinate+=offset;
+				if(BoardUtil.isValidTileCordinate(destinationCordinate)){
+					Tile destinationTile = board.getTile(destinationCordinate);
+					if(destinationTile.isTileOccupied()) {
+						//tile has a piece
+						Piece destinationPiece = destinationTile.getPiece();
+						if(destinationPiece.getPieceAlliance()!=this.getPieceAlliance()) {
+							legalMovelist.add(new AttackMove(board,this,destinationCordinate,destinationPiece));
+						}
+						break;//since can not jump a piece in a move
+					}else {
+						legalMovelist.add(new Move.MajorMove(board,this,destinationCordinate));
+					}
+				}else break;
 			}
 		}
 		return ImmutableList.copyOf(legalMovelist);

@@ -22,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.BoardUtil;
@@ -38,6 +39,12 @@ public class Table {
 	private final static Dimension OUTER_FRAME_DIMENSION = new Dimension(Constants.OUTER_FRAME_SIZE,Constants.OUTER_FRAME_SIZE); //600*600
 	private Board chessBoard;
 	private final BoardPanel boardPanel;
+	
+	private Tile sourceTile;
+    private Tile destinationTile;
+    private Piece humanMovedPiece;
+    
+	
 	//TODO later make it singeltion
 	public Table(){
 		
@@ -78,6 +85,16 @@ public class Table {
 			setPreferredSize(BOARD_PANEL_DIMENSION);
 			validate();
 		}
+
+		public void drawBoard(Board chessBoard) {
+			removeAll();
+			for(final TilePanel tilePanel : boardTiles){
+				tilePanel.drawTile(chessBoard);
+				add(tilePanel);
+			}
+			validate();
+			repaint();
+		}
 	}
 
 	
@@ -93,9 +110,6 @@ public class Table {
 	    private Color darkTileColor = Color.decode("#593E1A");
 	    private String defaultPeiceImagesPath = Constants.SPRITES_PATH;
 		
-	    private Tile sourceTile;
-	    private Tile destinationTile;
-	    private Piece humanMovedPiece;
 	    
 		public TilePanel(final BoardPanel boardPanel,final int tileId) {
 			super(new GridBagLayout());
@@ -112,12 +126,16 @@ public class Table {
 						sourceTile=null;
 						destinationTile=null;
 						humanMovedPiece = null;
+						System.out.println("move selection cleared");
 					}else if(isLeftMouseButton(e)){
 						if(sourceTile==null){
 							//first clicks
 							sourceTile = chessBoard.getTile(tileId);
 							humanMovedPiece = sourceTile.getPiece();
-							if(humanMovedPiece==null)sourceTile = null; //clicked on empty tilr
+							if(humanMovedPiece==null){
+								System.out.println("selected tile is empty");
+								sourceTile = null; //clicked on empty tilr
+							}else System.out.println("selected piece is "+humanMovedPiece.getPieceType().toString());
 						}else {
 							/*
 							 * second click 
@@ -130,8 +148,21 @@ public class Table {
 							final MoveTransition transition = chessBoard.getCurrentPlayer().makeMove(move);
 							if(transition.getMoveStatus().isDone()){
 								chessBoard = transition.getTransitionBoard();
-							}
+								System.out.println("moved played by "+chessBoard.getCurrentPlayer().getOpponent().getAlliance().toString());
+								//TODo add move to add log
+							}else System.out.println("move can not be played on this destination tile Try again");
+							sourceTile = null;
+							destinationTile = null;
+							humanMovedPiece = null;
 						}
+						
+						SwingUtilities.invokeLater(new Runnable() {
+							
+							@Override
+							public void run() {
+								boardPanel.drawBoard(chessBoard);
+							}
+						});
 					}
 				}
 				@Override
@@ -156,6 +187,13 @@ public class Table {
 			});
 			
 			validate();
+		}
+
+		public void drawTile(Board chessBoard) {
+			assignTileColor();
+			assignPieceIconOnTile(chessBoard);
+			validate();
+			repaint();
 		}
 
 		private void assignTileColor() {
