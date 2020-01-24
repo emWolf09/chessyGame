@@ -16,7 +16,11 @@ public class King extends Piece{
 
 	private static final int []LEGAL_MOVES = {-8,-1-9,-7,1,9,8,7};
 	public King(Alliance pieceAlliance,int piecePostion) {
-		super(piecePostion, pieceAlliance,PieceType.KING);
+		super(piecePostion, pieceAlliance,PieceType.KING,true);
+	}
+	
+	public King(Alliance pieceAlliance,int piecePostion,final boolean isFirstMove) {
+		super(piecePostion, pieceAlliance,PieceType.KING,isFirstMove);
 	}
 	
 	@Override

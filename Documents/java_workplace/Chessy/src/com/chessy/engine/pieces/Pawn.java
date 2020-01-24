@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.chessy.engine.board.AttackMove;
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.BoardUtil;
 import com.chessy.engine.board.Move;
+import com.chessy.engine.board.PawnJumpMove;
 import com.chessy.engine.board.Tile;
 import com.chessy.engine.common.Alliance;
 import com.google.common.collect.ImmutableList;
@@ -16,7 +18,11 @@ public class Pawn extends Piece{
 	private static final int []LEGAL_MOVES = {8,16,7,9};
 	
 	public Pawn(final Alliance pieceAlliance,final int piecePostion) {
-		super(piecePostion, pieceAlliance,PieceType.PAWN);
+		super(piecePostion, pieceAlliance,PieceType.PAWN,true);
+	}
+	
+	public Pawn(final Alliance pieceAlliance,final int piecePostion,final boolean isFirstMove) {
+		super(piecePostion, pieceAlliance,PieceType.PAWN,isFirstMove);
 	}
 
 	@Override
@@ -47,7 +53,7 @@ public class Pawn extends Piece{
 				if(!tileBehindDesination.isTileOccupied() && !board.getTile(destinationCordinate).isTileOccupied())canJump = true;
 				
 				if(canJump) {
-					legalMovelist.add(new  Move.MajorMove(board,this,destinationCordinate));
+					legalMovelist.add(new  PawnJumpMove(board,this,destinationCordinate));
 				}
 			}else if(offset==7 && 
 					!((this.pieceAlliance.isWhite()&&
@@ -58,7 +64,7 @@ public class Pawn extends Piece{
 				Piece destinationPiece = board.getTile(destinationCordinate).getPiece();
 				if(destinationPiece!=null && destinationPiece.pieceAlliance!=this.pieceAlliance) {
 					//TODO promotion or non promotion
-					legalMovelist.add(new Move.MajorMove(board,this,destinationCordinate));
+					legalMovelist.add(new AttackMove(board,this,destinationCordinate,destinationPiece));
 				}
 				
 					
@@ -71,7 +77,7 @@ public class Pawn extends Piece{
 				Piece destinationPiece = board.getTile(destinationCordinate).getPiece();
 				if(destinationPiece!=null &&destinationPiece.pieceAlliance!=this.pieceAlliance) {
 					//TODO promotion or non promotion
-					legalMovelist.add(new Move.MajorMove(board,this,destinationCordinate));
+					legalMovelist.add(new AttackMove(board,this,destinationCordinate,destinationPiece));
 				}
 			}
 		}

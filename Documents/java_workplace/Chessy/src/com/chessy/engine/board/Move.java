@@ -6,15 +6,24 @@ import com.chessy.engine.pieces.Piece;
 
 public abstract class Move {
 	
-	final Board board;
-	final Piece movedPiece;
-	final int destinationCordinate;
+	protected final Board board;
+	protected final Piece movedPiece;
+	protected final int destinationCordinate;
+	protected final boolean isFirstMove;
+	
 	final static Move NULL_MOVE = new NullMove();
-	protected Move(Board board, Piece movedPiece, int destinationCordinate) {
-		super();
+	protected Move(final Board board,final Piece movedPiece,final int destinationCordinate) {
 		this.board = board;
 		this.movedPiece = movedPiece;
 		this.destinationCordinate = destinationCordinate;
+		this.isFirstMove = movedPiece.isFirstMove();
+	}
+	
+	protected Move(final Board board,final int destinationCordinate){
+		this.board = board;
+		this.destinationCordinate = destinationCordinate;
+		this.movedPiece = null;
+		this.isFirstMove = false;
 	}
 	
 	@Override
@@ -23,6 +32,7 @@ public abstract class Move {
 		int result = 1;
 		result = prime * result + destinationCordinate;
 		result = prime * result + ((movedPiece == null) ? 0 : movedPiece.hashCode());
+		result = prime * result + ((movedPiece == null) ? 0 : movedPiece.getPiecePostion());
 		return result;
 	}
 
@@ -88,6 +98,16 @@ public abstract class Move {
 	public static class MajorMove extends Move{
 		public MajorMove(Board board, Piece movedPiece, int destinationCordinate) {
 			super(board, movedPiece, destinationCordinate);
+		}
+		
+		@Override
+		public boolean equals(Object other) {
+			return this==other||(other instanceof MajorMove && super.equals(other));
+		}
+		
+		@Override
+		public String toString() {
+			return movedPiece.getPieceType().toString()+BoardUtil.getPositionAtCordinate(this.destinationCordinate);
 		}
 	}
 	

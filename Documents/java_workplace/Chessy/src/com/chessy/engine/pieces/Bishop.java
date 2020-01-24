@@ -17,9 +17,11 @@ public class Bishop extends Piece {
 	private static final int []LEGAL_MOVES = {-9,-7,9,7};
 	
 	public Bishop(Alliance pieceAlliance,int piecePosition){
-		super(piecePosition, pieceAlliance,PieceType.BISHOP);
+		super(piecePosition, pieceAlliance,PieceType.BISHOP,true);
 	}
-	
+	public Bishop(Alliance pieceAlliance,int piecePosition,final boolean isFirstMove){
+		super(piecePosition, pieceAlliance,PieceType.BISHOP,isFirstMove);
+	}
 	@Override
 	public String toString() {
 		return Piece.PieceType.BISHOP.toString();
