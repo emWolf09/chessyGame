@@ -17,6 +17,7 @@ public abstract class Move {
 		this.movedPiece = movedPiece;
 		this.destinationCordinate = destinationCordinate;
 		this.isFirstMove = movedPiece.isFirstMove();
+//		this.isFirstMove = true;
 	}
 	
 	protected Move(final Board board,final int destinationCordinate){

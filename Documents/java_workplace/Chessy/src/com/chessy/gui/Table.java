@@ -143,6 +143,42 @@ public class Table {
 	
 	
 	
+	public static class MoveLog{
+		private final List<Move> moves;
+		
+		public MoveLog(){
+			this.moves = new ArrayList<>();
+		}
+
+		public List<Move> getMoves() {
+			return moves;
+		}
+		
+		
+		public void addMove(final Move m){
+			this.moves.add(m);
+		}
+		
+		public int size(){
+			return this.moves.size();
+		}
+		
+		public void clear(){
+			this.moves.clear();
+		}
+		
+
+		public boolean remove(final Move m){
+			return this.moves.remove(m);
+		}
+		
+		public Move remove(final int index){
+			return this.moves.remove(index);
+		}
+		
+	}
+	
+	
 	
 	@SuppressWarnings("serial")
 	public class TilePanel extends JPanel{

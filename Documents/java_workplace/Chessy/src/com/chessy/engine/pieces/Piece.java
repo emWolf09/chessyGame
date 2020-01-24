@@ -13,6 +13,7 @@ public abstract class Piece {
 	protected final PieceType pieceType;
 	//cached hash code
 	private final int hashCode;
+	
 	Piece(final int piecePostion,final Alliance pieceAlliance,final PieceType pieceType,final boolean isFirstMove){
 		this.piecePostion = piecePostion;
 		this.pieceAlliance = pieceAlliance;
@@ -53,6 +54,10 @@ public abstract class Piece {
 		return this.piecePostion;
 	}
 	
+	public int getPieceValue(){
+		return this.getPieceType().getPieceValue();
+	}
+	
 	public PieceType getPieceType() {
 		return this.pieceType;
 	}
@@ -69,7 +74,7 @@ public abstract class Piece {
 	
 	
 	public enum PieceType{
-		PAWN("P") {
+		PAWN("P",100) {
 			@Override
 			public boolean isKing() {
 				return false;
@@ -79,8 +84,9 @@ public abstract class Piece {
 			public boolean isRook() {
 				return false;
 			}
+
 		},
-		ROOK("R") {
+		ROOK("R",500) {
 			@Override
 			public boolean isKing() {
 				return false;
@@ -89,8 +95,9 @@ public abstract class Piece {
 			public boolean isRook() {
 				return true;
 			}
+			
 		},
-		KNIGHT("N") {
+		KNIGHT("N",300) {
 			@Override
 			public boolean isKing() {
 				return false;
@@ -99,8 +106,9 @@ public abstract class Piece {
 			public boolean isRook() {
 				return false;
 			}
+			
 		},
-		BISHOP("B") {
+		BISHOP("B",300) {
 			@Override
 			public boolean isKing() {
 				return false;
@@ -109,8 +117,9 @@ public abstract class Piece {
 			public boolean isRook() {
 				return false;
 			}
+			
 		},
-		QUEEN("Q") {
+		QUEEN("Q",900) {
 			@Override
 			public boolean isKing() {
 				return false;
@@ -119,8 +128,9 @@ public abstract class Piece {
 			public boolean isRook() {
 				return false;
 			}
+			
 		},
-		KING("K") {
+		KING("K",10000) {
 			@Override
 			public boolean isKing() {
 				return true;
@@ -129,18 +139,26 @@ public abstract class Piece {
 			public boolean isRook() {
 				return false;
 			}
+			
 		};
 		
 		String pieceName;
+		Integer pieceValue;
 		
-		PieceType(String pieceName) {
+		PieceType(String pieceName,Integer value) {
 			this.pieceName = pieceName;
+			this.pieceValue = value;
 		}
 		
 		@Override
 		public String toString() {
 			return this.pieceName.toString();
 		}
+		
+		public int getPieceValue(){
+			return this.pieceValue;
+		}
+		
 		public abstract boolean isKing();
 
 		public abstract boolean isRook();
