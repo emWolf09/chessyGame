@@ -54,6 +54,10 @@ public class Table {
     
     private BoardDirection boardDirection;
     private boolean highlightMoveFlag;
+    
+    private TakenPiecePanel takenPiecePanel;
+    private GameHistoryPanel gameHistoryPanel;
+    private MoveLog moveLog;
 	
 	//TODO later make it singeltion
 	public Table(){
@@ -63,11 +67,17 @@ public class Table {
 		this.boardDirection = BoardDirection.NORMAL;
 		MenuBar menuBar = new MenuBar();
 		final JMenuBar tableMenuBar = menuBar.createTableMenuBar();
+		this.highlightMoveFlag = true;
 		gameFrame.setJMenuBar(tableMenuBar);
 		this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
 		chessBoard = Board.createStandardBoard();
 		this.boardPanel = new BoardPanel();
+		this.moveLog = new MoveLog();
+		this.gameHistoryPanel = new GameHistoryPanel();
+		this.takenPiecePanel = new TakenPiecePanel();
+		this.gameFrame.add(takenPiecePanel,BorderLayout.WEST);
 		this.gameFrame.add(this.boardPanel,BorderLayout.CENTER);
+		this.gameFrame.add(this.gameHistoryPanel,BorderLayout.EAST);
 		this.gameFrame.setVisible(true);
 	}
 
@@ -228,7 +238,7 @@ public class Table {
 							if(transition.getMoveStatus().isDone()){
 								chessBoard = transition.getTransitionBoard();
 								System.out.println("moved played by "+chessBoard.getCurrentPlayer().getOpponent().getAlliance().toString());
-								//TODo add move to add log
+								moveLog.addMove(move); 
 							}else System.out.println("move can not be played on this destination tile Try again");
 							sourceTile = null;
 							destinationTile = null;
@@ -239,6 +249,8 @@ public class Table {
 							
 							@Override
 							public void run() {
+								gameHistoryPanel.redo(chessBoard,moveLog);
+								//takenPiecePanel.redo(moveLog);
 								boardPanel.drawBoard(chessBoard);
 							}
 						});
@@ -349,7 +361,6 @@ public class Table {
 			final JMenu preferencesMenu = new JMenu("Preferences");
 			final JMenuItem flipBoard = new JMenuItem("Flip Board");
 			flipBoard.addActionListener(new ActionListener() {
-				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					boardDirection = boardDirection.opposite();
@@ -358,7 +369,7 @@ public class Table {
 			});
 			preferencesMenu.add(flipBoard);
 			preferencesMenu.addSeparator();
-			final JCheckBoxMenuItem highlightMove = new JCheckBoxMenuItem("Highlight Legal Move");
+			final JCheckBoxMenuItem highlightMove = new JCheckBoxMenuItem("Highlight Legal Move",true);
 			highlightMove.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

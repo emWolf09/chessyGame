@@ -1,0 +1,2 @@
+castling move is not highlighting
+after 10+ moves game is not working properly

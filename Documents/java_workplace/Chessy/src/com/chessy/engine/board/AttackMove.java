@@ -53,7 +53,10 @@ public class AttackMove extends Move{
 	 }
 	 
 	 
-	 
+	 @Override
+		public String toString() {
+			return "AttackMove";
+		}
 	 
 	 public static class PawnAttackMove extends AttackMove{
 		final Piece attackedPiece;
@@ -66,6 +69,10 @@ public class AttackMove extends Move{
 			// TODO Auto-generated method stub
 			return null;
 		}	
+		@Override
+		public String toString() {
+			return "PawnAttack";
+		}
 			
 	}
 		
@@ -80,6 +87,10 @@ public class AttackMove extends Move{
 		public Board execute() {
 			// TODO Auto-generated method stub
 			return null;
-		}	
+		}
+		@Override
+		public String toString() {
+			return "EnPassantMove";
+		}
 	}
 }

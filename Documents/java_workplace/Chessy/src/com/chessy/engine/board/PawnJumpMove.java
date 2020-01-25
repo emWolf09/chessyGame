@@ -31,4 +31,9 @@ public class PawnJumpMove extends Move {
 		builder.setNextMoveMaker(this.board.getCurrentPlayer().getOpponent().getAlliance());
 		return builder.build();
 	}
+	
+	@Override
+    public String toString() {
+        return BoardUtil.getPositionAtCordinate(this.destinationCordinate);
+    }
 }
