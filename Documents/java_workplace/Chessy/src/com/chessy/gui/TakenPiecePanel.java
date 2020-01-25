@@ -28,8 +28,8 @@ public class TakenPiecePanel extends JPanel {
 	
 	private static final EtchedBorder PANEL_BORDER = new EtchedBorder(EtchedBorder.RAISED);
 	private String defaultPeiceImagesPath = Constants.SPRITES_PATH;
-	private static final Color PANEL_COLOR = Color.decode("0xFDFE6");
-	private static Dimension TAKEN_PIECES_DIM = new Dimension(40,80);
+	private static final Color PANEL_COLOR = Color.decode("#a89556");
+	private static Dimension TAKEN_PIECES_DIM = new Dimension(100,100);
 	
 	public TakenPiecePanel(){
 		super(new BorderLayout());

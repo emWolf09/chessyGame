@@ -1,15 +1,20 @@
 package com.chessy.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import com.chessy.engine.board.Board;
 import com.chessy.engine.board.Move;
@@ -20,17 +25,22 @@ import com.chessy.gui.Table.MoveLog;
 public class GameHistoryPanel extends JPanel {
 	private  DataModel model;
 	private  JScrollPane scrollPane;
-	private final Dimension HISTORY_PANEL_DIM = new Dimension(100,400);
-	
+	private final Dimension HISTORY_PANEL_DIM = new Dimension(140,400);
+	Font fontHeader = new Font("Arial", Font.BOLD, 18);
+	Font fontData = new Font(Font.SERIF, Font.ITALIC, 25);
 	
 	public GameHistoryPanel() {
 		this.setLayout(new BorderLayout());
 		this.model = new DataModel();
 		final JTable table = new JTable(model);
-		table.setRowHeight(15);
+		table.setRowHeight(20);
+		table.setFont(fontHeader);
+	    JTableHeader header = table.getTableHeader();
+	    header.setFont(fontHeader);
 		this.scrollPane = new JScrollPane(table);
 		scrollPane.setColumnHeaderView(table.getTableHeader());
 		scrollPane.setPreferredSize(HISTORY_PANEL_DIM);
+		scrollPane.setBackground(Color.decode("#a89556"));
 		this.add(scrollPane,BorderLayout.CENTER);
 		this.setVisible(true);
 	}

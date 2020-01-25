@@ -250,7 +250,7 @@ public class Table {
 							@Override
 							public void run() {
 								gameHistoryPanel.redo(chessBoard,moveLog);
-								//takenPiecePanel.redo(moveLog);
+								takenPiecePanel.redo(moveLog);
 								boardPanel.drawBoard(chessBoard);
 							}
 						});
