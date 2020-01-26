@@ -8,25 +8,24 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
+//import javax.swing.border.EtchedBorder;
 
 import com.chessy.engine.board.Move;
-import com.chessy.engine.common.Alliance;
 import com.chessy.engine.pieces.Piece;
 import com.chessy.gui.Table.MoveLog;
 
+@SuppressWarnings("serial")
 public class TakenPiecePanel extends JPanel {
 	
 	private final JPanel northPanel,southPanel;
 	
-	private static final EtchedBorder PANEL_BORDER = new EtchedBorder(EtchedBorder.RAISED);
+	//private static final EtchedBorder PANEL_BORDER = new EtchedBorder(EtchedBorder.RAISED);
 	private String defaultPeiceImagesPath = Constants.SPRITES_PATH;
 	private static final Color PANEL_COLOR = Color.decode("#a89556");
 	private static Dimension TAKEN_PIECES_DIM = new Dimension(100,100);
@@ -74,13 +73,13 @@ public class TakenPiecePanel extends JPanel {
 			try {
 				 final BufferedImage image =
 	                ImageIO.read(new File(defaultPeiceImagesPath+((piece.getPieceAlliance().isWhite())?"white":"black") + 
-	                		piece.toString()+".png"));
-	                add(new JLabel(new ImageIcon(image)));
-	                
-	                final ImageIcon icon = new ImageIcon(image);
-	                //TODO correct JLabel
-	                final JLabel imageLable = new JLabel("label1");
-	                southPanel.add(imageLable);
+	                		piece.getPieceType().toString()+".png"));
+	             
+				 	southPanel.add(new JLabel(new ImageIcon(image)));
+//	                final ImageIcon icon = new ImageIcon(image);
+//	                //TODO correct JLabel
+//	                final JLabel imageLable = new JLabel("label1");
+//	                southPanel.add(imageLable);
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -91,14 +90,14 @@ public class TakenPiecePanel extends JPanel {
 					
 			try {
 				 final BufferedImage image =
-	                ImageIO.read(new File(defaultPeiceImagesPath+((piece.getPieceAlliance().isWhite())?"white":"black") + 
-	                		piece.toString()+".png"));
-	                add(new JLabel(new ImageIcon(image)));
+	                ImageIO.read(new File(defaultPeiceImagesPath+((piece.getPieceAlliance().isBlack())?"black":"white") + 
+	                		piece.getPieceType().toString()+".png"));
+	                northPanel.add(new JLabel(new ImageIcon(image)));
 	                
-	                final ImageIcon icon = new ImageIcon(image);
-	                //TODO
-	                final JLabel imageLable = new JLabel("label1");
-	                northPanel.add(imageLable);
+//	                final ImageIcon icon = new ImageIcon(image);
+//	                //TODO
+//	                final JLabel imageLable = new JLabel("label1");
+//	                northPanel.add(imageLable);
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -106,5 +105,6 @@ public class TakenPiecePanel extends JPanel {
 		}
 		
 		validate();
+		repaint();
 	}
 }

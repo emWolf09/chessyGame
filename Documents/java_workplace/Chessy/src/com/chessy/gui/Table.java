@@ -56,7 +56,7 @@ public class Table {
     private boolean highlightMoveFlag;
     
     private TakenPiecePanel takenPiecePanel;
-    private GameHistoryPanel gameHistoryPanel;
+    //private GameHistoryPanel gameHistoryPanel;
     private MoveLog moveLog;
 	
 	//TODO later make it singeltion
@@ -73,11 +73,11 @@ public class Table {
 		chessBoard = Board.createStandardBoard();
 		this.boardPanel = new BoardPanel();
 		this.moveLog = new MoveLog();
-		this.gameHistoryPanel = new GameHistoryPanel();
+//		this.gameHistoryPanel = new GameHistoryPanel();
 		this.takenPiecePanel = new TakenPiecePanel();
 		this.gameFrame.add(takenPiecePanel,BorderLayout.WEST);
 		this.gameFrame.add(this.boardPanel,BorderLayout.CENTER);
-		this.gameFrame.add(this.gameHistoryPanel,BorderLayout.EAST);
+//		this.gameFrame.add(this.gameHistoryPanel,BorderLayout.EAST);
 		this.gameFrame.setVisible(true);
 	}
 
@@ -252,7 +252,7 @@ public class Table {
 							
 							@Override
 							public void run() {
-								gameHistoryPanel.redo(chessBoard,moveLog);
+								//gameHistoryPanel.redo(chessBoard,moveLog);
 								takenPiecePanel.redo(moveLog);
 								boardPanel.drawBoard(chessBoard);
 							}

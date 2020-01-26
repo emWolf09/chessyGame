@@ -22,5 +22,8 @@ public class MoveTransition {
 		return this.moveStatus;
 	}
 	
+	public Move getMove() {
+		return move;
+	}
 	
 }
