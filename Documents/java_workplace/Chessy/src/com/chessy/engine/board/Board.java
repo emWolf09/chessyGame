@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.text.AbstractDocument.LeafElement;
 
 import com.chessy.engine.common.Alliance;
 import com.chessy.engine.constants.Constants;
@@ -18,7 +17,6 @@ import com.chessy.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
-import sun.security.util.LegacyAlgorithmConstraints;
 
 public class Board {
 	

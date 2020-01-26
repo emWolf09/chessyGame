@@ -36,11 +36,6 @@ public class AttackMove extends Move{
 		return true;
 	}
 
-	@Override
-	public Board execute() {
-		// TODO Auto-generated method stub
-		return null;
-	}	
 	
 	@Override
 	public boolean isAttack() {
