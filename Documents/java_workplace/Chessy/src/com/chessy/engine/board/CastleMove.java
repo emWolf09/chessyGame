@@ -39,7 +39,7 @@ abstract public class CastleMove extends Move{
 			builder.setPiece(piece);
 		}
 		builder.setPiece(this.movedPiece.movePiece(this));
-		builder.setPiece(new Rook(this.castleRook.getPieceAlliance(),this.castleRookDestination));
+		builder.setPiece(new Rook(this.castleRook.getPieceAlliance(),this.castleRookDestination,false));
 		//TODO look into rook set first move false condition
 		builder.setNextMoveMaker(this.board.getCurrentPlayer().getOpponent().getAlliance());
 		return builder.build();

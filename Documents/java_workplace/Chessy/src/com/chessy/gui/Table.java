@@ -239,7 +239,10 @@ public class Table {
 								chessBoard = transition.getTransitionBoard();
 								System.out.println("moved played by "+chessBoard.getCurrentPlayer().getOpponent().getAlliance().toString());
 								moveLog.addMove(move); 
-							}else System.out.println("move can not be played on this destination tile Try again");
+							}else {
+								System.out.println(transition.getMoveStatus()+"move can not be played on this destination tile Try again");
+								
+							}
 							sourceTile = null;
 							destinationTile = null;
 							humanMovedPiece = null;

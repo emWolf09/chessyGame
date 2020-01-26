@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableList;
 
 public class King extends Piece{
 
-	private static final int []LEGAL_MOVES = {-8,-1-9,-7,1,9,8,7};
+	private static final int []LEGAL_MOVES = {-8,-1,-9,-7,1,9,8,7};
 	public King(Alliance pieceAlliance,int piecePostion) {
 		super(piecePostion, pieceAlliance,PieceType.KING,true);
 	}
@@ -32,9 +32,8 @@ public class King extends Piece{
 	public Collection<Move> calculateLegalMoves(Board board) {
 		int destinationCordinate;
 		List<Move> legalMovelist = new ArrayList<>();
-		for(int i : LEGAL_MOVES) {
+		for(int i : King.LEGAL_MOVES) {
 			destinationCordinate = this.piecePostion+i;
-			
 			if(BoardUtil.isValidTileCordinate(destinationCordinate)) {
 				if(isFirstColumnExclusion(this.piecePostion,i) ||isEighthColumnExclusion(this.piecePostion,i))
 	                continue;
@@ -67,7 +66,7 @@ public class King extends Piece{
     
     @Override
 	public King movePiece(Move move) {
-		return new King(move.getMovedPiece().getPieceAlliance(), move.getDestinationCordinate());
+		return new King(move.getMovedPiece().getPieceAlliance(), move.getDestinationCordinate(),false);
 	}
 
 }
