@@ -74,7 +74,9 @@ public abstract class Move {
 	public boolean isAttack() {
 		return false;
 	}
-	
+	/*
+	 * piece on whitch attackMove was executed
+	 */
 	public Piece getAttackPiece() {
 		return null;
 	}

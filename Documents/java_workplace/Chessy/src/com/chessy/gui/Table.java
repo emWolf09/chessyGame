@@ -73,11 +73,9 @@ public class Table {
 		chessBoard = Board.createStandardBoard();
 		this.boardPanel = new BoardPanel();
 		this.moveLog = new MoveLog();
-//		this.gameHistoryPanel = new GameHistoryPanel();
 		this.takenPiecePanel = new TakenPiecePanel();
 		this.gameFrame.add(takenPiecePanel,BorderLayout.WEST);
 		this.gameFrame.add(this.boardPanel,BorderLayout.CENTER);
-//		this.gameFrame.add(this.gameHistoryPanel,BorderLayout.EAST);
 		this.gameFrame.setVisible(true);
 	}
 
@@ -232,16 +230,14 @@ public class Table {
 							 * -> can be clicking on the destination tile or selecting another piece as a source pieee
 							 */
 							destinationTile = chessBoard.getTile(tileId);
-							//TODO
 							final Move move = MoveFactory.createMove(chessBoard, sourceTile.getTileCordinate(), destinationTile.getTileCordinate());
 							final MoveTransition transition = chessBoard.getCurrentPlayer().makeMove(move);
 							if(transition.getMoveStatus().isDone()){
 								chessBoard = transition.getTransitionBoard();
-								System.out.println("moved played by "+chessBoard.getCurrentPlayer().getOpponent().getAlliance().toString());
+								System.out.println(transition.getMoveStatus()+"moved played by "+chessBoard.getCurrentPlayer().getOpponent().getAlliance().toString());
 								moveLog.addMove(move); 
 							}else {
 								System.out.println(transition.getMoveStatus()+"move can not be played on this destination tile Try again");
-								
 							}
 							sourceTile = null;
 							destinationTile = null;
@@ -252,7 +248,6 @@ public class Table {
 							
 							@Override
 							public void run() {
-								//gameHistoryPanel.redo(chessBoard,moveLog);
 								takenPiecePanel.redo(moveLog);
 								boardPanel.drawBoard(chessBoard);
 							}

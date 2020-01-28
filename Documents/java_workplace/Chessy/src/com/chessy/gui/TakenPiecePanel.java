@@ -28,7 +28,7 @@ public class TakenPiecePanel extends JPanel {
 	//private static final EtchedBorder PANEL_BORDER = new EtchedBorder(EtchedBorder.RAISED);
 	private String defaultPeiceImagesPath = Constants.SPRITES_PATH;
 	private static final Color PANEL_COLOR = Color.decode("#a89556");
-	private static Dimension TAKEN_PIECES_DIM = new Dimension(100,100);
+	private static Dimension TAKEN_PIECES_DIM = new Dimension(100,200);
 	
 	public TakenPiecePanel(){
 		super(new BorderLayout());
@@ -75,11 +75,9 @@ public class TakenPiecePanel extends JPanel {
 	                ImageIO.read(new File(defaultPeiceImagesPath+((piece.getPieceAlliance().isWhite())?"white":"black") + 
 	                		piece.getPieceType().toString()+".png"));
 	             
-				 	southPanel.add(new JLabel(new ImageIcon(image)));
-//	                final ImageIcon icon = new ImageIcon(image);
-//	                //TODO correct JLabel
-//	                final JLabel imageLable = new JLabel("label1");
-//	                southPanel.add(imageLable);
+				 ImageIcon icon = new ImageIcon(image);
+				 java.awt.Image scaledImage = icon.getImage().getScaledInstance(35,35,java.awt.Image.SCALE_SMOOTH);
+	             southPanel.add(new JLabel(new ImageIcon(scaledImage)));
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -92,12 +90,9 @@ public class TakenPiecePanel extends JPanel {
 				 final BufferedImage image =
 	                ImageIO.read(new File(defaultPeiceImagesPath+((piece.getPieceAlliance().isBlack())?"black":"white") + 
 	                		piece.getPieceType().toString()+".png"));
-	                northPanel.add(new JLabel(new ImageIcon(image)));
-	                
-//	                final ImageIcon icon = new ImageIcon(image);
-//	                //TODO
-//	                final JLabel imageLable = new JLabel("label1");
-//	                northPanel.add(imageLable);
+				 ImageIcon icon = new ImageIcon(image);
+				 java.awt.Image scaledImage = icon.getImage().getScaledInstance(35,35,java.awt.Image.SCALE_SMOOTH);
+	             northPanel.add(new JLabel(new ImageIcon(scaledImage)));
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
